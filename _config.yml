@@ -29,7 +29,7 @@ twitter_username: czitrow
 github_username:  williamortizc
 
 # Build settings
-theme: minima
+theme: hacker
 plugins:
   - jekyll-feed
 
