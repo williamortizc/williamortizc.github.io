@@ -1,25 +1,38 @@
----
-# Jekyll requiere este comentario para procesar el SCSS
----
+// Variables reutilizables
+$card-width: 300px;
+$card-height: 190px;
+$primary-gradient: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+$secondary-gradient: linear-gradient(135deg, #4ecdc4, #45b7af);
+
+// Estilos base
+body {
+  margin: 0;
+  background: #f0f0f0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 .card-container {
   perspective: 1000px;
-  width: 300px;
-  margin: 50px auto;
+  width: $card-width;
+  margin: 0 auto;
 }
 
 .card {
   width: 100%;
-  height: 190px;
+  height: $card-height;
   transition: transform 0.6s;
   transform-style: preserve-3d;
   position: relative;
   border-radius: 15px;
   cursor: pointer;
-}
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
 
-.card.flipped {
-  transform: rotateY(180deg);
+  &.flipped {
+    transform: rotateY(180deg);
+  }
 }
 
 .card-front, .card-back {
@@ -27,15 +40,14 @@
   width: 100%;
   height: 100%;
   backface-visibility: hidden;
-  padding: 20px;
   border-radius: 15px;
-  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+  padding: 20px;
+  color: white;
 }
 
-/* Diseño FRONTAL */
+// Parte frontal
 .card-front {
-  background: linear-gradient(135deg, #ff758c, #ff7eb3);
-  color: white;
+  background: $primary-gradient;
   
   .bank-logo {
     font-size: 20px;
@@ -52,7 +64,7 @@
   }
   
   .fake-number {
-    font-family: monospace;
+    font-family: 'Courier New', monospace;
     letter-spacing: 2px;
     position: absolute;
     bottom: 20px;
@@ -60,11 +72,10 @@
   }
 }
 
-/* Diseño TRASERO */
+// Parte trasera
 .card-back {
-  background: linear-gradient(135deg, #4ecdc4, #45b7af);
+  background: $secondary-gradient;
   transform: rotateY(180deg);
-  color: white;
   
   .balance {
     font-size: 28px;
@@ -86,17 +97,15 @@
   }
 }
 
-/* Efecto de brillo al tocar (móvil) */
+// Efecto de brillo al tocar
 .glitter {
   position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
   height: 100%;
   background: linear-gradient(
     45deg,
     transparent 40%,
-    rgba(255, 255, 255, 0.3) 50%,
+    rgba(255,255,255,0.3) 50%,
     transparent 60%
   );
   opacity: 0;

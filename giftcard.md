@@ -1,39 +1,27 @@
 ---
-layout: default          # Usa el layout por defecto de Jekyll
-permalink: /giftcard/    # Define la URL personalizada
+layout: card
+permalink: /7kL!9pQ2-5mRgA/  # URL imposible de adivinar
 ---
 
-<!-- Contenedor principal de la tarjeta -->
 <div class="card-container">
   <div class="card" onclick="flipCard()">
-    
-    <!-- Parte FRONTAL de la tarjeta -->
+    <!-- Parte frontal -->
     <div class="card-front">
-      <!-- Efecto de "brillo" al presionar -->
       <div class="glitter"></div>
-      
-      <!-- Logo y detalles de la tarjeta -->
-      <div class="bank-logo">💖 GiftForYou</div>
+      <div class="bank-logo">💝 GiftLove</div>
       <div class="chip"></div>
-      <div class="fake-number">**** **** **** {{ site.data.data.balance | slice: 0,4 }}</div>  <!-- Ej: **** **** **** 0150 -->
+      <div class="fake-number">**** **** **** {{ site.data.giftcard.balance | slice: 0,4 }}</div>
     </div>
-
-    <!-- Parte TRASERA de la tarjeta -->
+    
+    <!-- Parte trasera -->
     <div class="card-back">
-      <!-- Saldo actualizado desde data.yml -->
-      <div class="balance">{{ site.data.data.balance }} USD</div>
-      
-      <!-- Mensaje personalizado -->
-      <div class="message">{{ site.data.data.message }}</div>
-      
-      <!-- Nombre de tu novia -->
-      <div class="name">{{ site.data.data.name }}</div>
+      <div class="balance">{{ site.data.giftcard.balance }} USD</div>
+      <div class="message">{{ site.data.giftcard.message }}</div>
+      <div class="name">{{ site.data.giftcard.name }}</div>
     </div>
   </div>
 </div>
 
-<!-- Enlace a los estilos CSS -->
-<link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
-
-<!-- Script de animación -->
-<script src="{{ '/assets/js/script.js' | relative_url }}"></script>
+<!-- CSS y JS específicos de la tarjeta -->
+<link rel="stylesheet" href="{{ '/assets/css/giftcard.scss' | relative_url }}">
+<script src="{{ '/assets/js/giftcard.js' | relative_url }}"></script>
