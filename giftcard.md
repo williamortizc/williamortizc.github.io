@@ -23,5 +23,5 @@ permalink: /7kL!9pQ2-5mRgA/  # URL imposible de adivinar
 </div>
 
 <!-- CSS y JS específicos de la tarjeta -->
-<link rel="stylesheet" href="{{ '/assets/css/giftcard.scss' | relative_url }}">
+<link rel="stylesheet" href="{{ '/assets/css/giftcard.css' | relative_url }}">
 <script src="{{ '/assets/js/giftcard.js' | relative_url }}"></script>
