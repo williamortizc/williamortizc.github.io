@@ -1,5 +1,5 @@
 ---
-# layout: card
+layout: card
 permalink: /7kL!9pQ2-5mRgA/  # URL imposible de adivinar
 ---
 
