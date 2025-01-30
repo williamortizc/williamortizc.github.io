@@ -10,14 +10,13 @@ permalink: /7kL!9pQ2-5mRgA/  # URL imposible de adivinar
       <div class="glitter"></div>
       <div class="bank-logo">💝 Tarjeta de Regalo</div>
       <div class="chip"></div>
-      <div class="fake-number">1234 1234 1234 {{ site.data.giftcard.balance | slice: 0,4 }}</div>
+      <div class="name">{{ site.data.giftcard.name }}</div>
     </div>
     
     <!-- Parte trasera -->
     <div class="card-back">
       <div class="balance">{{ site.data.giftcard.balance }} USD</div>
       <div class="message">{{ site.data.giftcard.message }}</div>
-      <div class="name">{{ site.data.giftcard.name }}</div>
     </div>
   </div>
 </div>
