@@ -1,73 +1,92 @@
 // ========== CONFIGURACIÓN ==========
-const SECRET_PASSWORD = "avellana"; // Tu contraseña
+const SECRET_PASSWORD = "avellana";
 const MAX_ATTEMPTS = 3;
 const HINTS = [
-  "Pista 1: No eres una nuez... 🌰", 
-  "Pista 2: Tampoco una almendra... 🥜",
-  "¡Eres av...! Vuelve a intentarlo"
+  "Pista 1: 🌰 No eres una nuez...", 
+  "Pista 2: 🥜 Tampoco una almendra...",
+  "¡Eres mi av****** favorita! Vuelve a intentarlo..."
 ];
 
-// ========== ELEMENTOS DEL DOM ==========
-let cardHTML; // Almacenará el HTML original
+// ========== VARIABLES GLOBALES ==========
+let originalHTML;
 
+// ========== INICIALIZACIÓN ==========
 document.addEventListener('DOMContentLoaded', () => {
-  // Guarda el HTML original y oculta la tarjeta
-  cardHTML = document.body.innerHTML;
+  originalHTML = document.body.innerHTML;
+  showLoader();
+  startAuthProcess();
+});
+
+// ========== LÓGICA PRINCIPAL ==========
+function startAuthProcess(attempt = 1) {
+  const userAnswer = prompt(getPromptMessage(attempt));
+  
+  if (validateAnswer(userAnswer)) {
+    showCard();
+    initCardInteraction();
+    triggerConfetti();
+  } else if (attempt < MAX_ATTEMPTS) {
+    alert(HINTS[attempt - 1]);
+    startAuthProcess(attempt + 1);
+  } else {
+    redirectToHome();
+  }
+}
+
+// ========== FUNCIONES DE INTERFAZ ==========
+function showLoader() {
   document.body.innerHTML = `
     <div class="loader">
       <div class="spinner"></div>
       <p>Cargando tu regalo especial...</p>
     </div>
   `;
-  
-  startAuthProcess();
-});
-
-// ========== LÓGICA DE AUTENTICACIÓN ==========
-async function startAuthProcess(attempt = 1) {
-  const userAnswer = prompt(getPromptMessage(attempt));
-  
-  if (userAnswer?.toLowerCase().trim() === SECRET_PASSWORD) {
-    showCard();
-    triggerConfetti();
-  } else if (attempt < MAX_ATTEMPTS) {
-    alert(HINTS[attempt - 1]);
-    startAuthProcess(attempt + 1);
-  } else {
-    alert(HINTS[2]);
-    window.location.href = "/";
-  }
 }
 
-// ========== FUNCIONES DE INTERFAZ ==========
 function showCard() {
-  document.body.innerHTML = cardHTML; // Restaura el HTML original
-  document.querySelector('.card').addEventListener('click', flipCard);
+  document.body.innerHTML = originalHTML;
+}
+
+function initCardInteraction() {
+  const card = document.querySelector('.card');
+  card.style.transition = 'transform 0.6s'; // Fuerza la transición
+  card.addEventListener('click', flipCard);
 }
 
 function flipCard() {
-  document.querySelector('.card').classList.toggle('flipped');
+  const card = document.querySelector('.card');
+  card.classList.toggle('flipped');
+  
+  // Fuerza repintado para asegurar la animación
+  void card.offsetWidth;
 }
 
-// ========== EFECTOS VISUALES ==========
+// ========== VALIDACIÓN Y EFECTOS ==========
+function validateAnswer(answer) {
+  return answer?.toLowerCase().trim() === SECRET_PASSWORD;
+}
+
 async function triggerConfetti() {
   try {
-    const confettiModule = await import('https://cdn.skypack.dev/canvas-confetti');
-    const confetti = confettiModule.default;
-    
-    confetti({
+    const { default: confetti } = await import('https://cdn.skypack.dev/canvas-confetti');
+    confetti({ 
       particleCount: 150,
       spread: 100,
       origin: { y: 0.6 },
       colors: ['#ff69b4', '#00a3e0', '#ffffff']
     });
   } catch (error) {
-    console.log("Confeti no disponible en este entorno");
+    console.log("Confeti desactivado en modo de prueba");
   }
 }
 
 // ========== UTILIDADES ==========
 function getPromptMessage(attempt) {
-  const emojis = ["🔐", "🔑", "💌"];
-  return `${emojis[attempt - 1]} Intento ${attempt}/${MAX_ATTEMPTS}:\n¿Cuál es nuestra palabra clave?`;
+  const emojis = ["🔐", "🔑", "💝"];
+  return `${emojis[attempt - 1]} Intento ${attempt}/${MAX_ATTEMPTS}:\nEscribe la palabra secreta`;
+}
+
+function redirectToHome() {
+  alert(HINTS[2]);
+  window.location.href = "/";
 }
