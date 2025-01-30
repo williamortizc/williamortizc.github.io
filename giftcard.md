@@ -8,9 +8,9 @@ permalink: /7kL!9pQ2-5mRgA/  # URL imposible de adivinar
     <!-- Parte frontal -->
     <div class="card-front">
       <div class="glitter"></div>
-      <div class="bank-logo">💝 GiftLove</div>
+      <div class="bank-logo">💝 Tarjeta de Regalo</div>
       <div class="chip"></div>
-      <div class="fake-number">**** **** **** {{ site.data.giftcard.balance | slice: 0,4 }}</div>
+      <div class="fake-number">1234 1234 1234 {{ site.data.giftcard.balance | slice: 0,4 }}</div>
     </div>
     
     <!-- Parte trasera -->
