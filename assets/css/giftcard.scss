@@ -1,43 +1,36 @@
 ---
-# Solo un comentario para que Jekyll procese el archivo
+# Comentario necesario para procesar SCSS
 ---
 
-// Variables
+/* ========== VARIABLES ========== */
 $stitch-blue: #00a3e0;
 $stitch-pink: #ff69b4;
 $romantic-red: #ff6b6b;
 $romantic-gradient: linear-gradient(135deg, $romantic-red 0%, #ff8e8e 100%);
 
-// Estilos base
+/* ========== RESET PARA GITHUB PAGES ========== */
+body, html {
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow-x: hidden !important;
+  min-height: 100vh !important;
+}
+
+/* ========== ESTILOS GENERALES ========== */
 body {
-  margin: 0;
-  background: #f0f0f0 url('../images/stitch-bg.png') no-repeat center center fixed;
-  background-size: cover;
-  min-height: 100vh;
-  display: flex;
+  background: #f0f0f0;
+  display: flex !important;
   align-items: center;
   justify-content: center;
   font-family: 'Quicksand', sans-serif;
 }
 
+/* ========== TARJETA ========== */
 .card-container {
   perspective: 1000px;
   width: 320px;
   margin: 0 auto;
   position: relative;
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: -20px;
-    left: -20px;
-    right: -20px;
-    bottom: -20px;
-    background: url('../images/stitch-paw.png') no-repeat;
-    background-size: 80px;
-    opacity: 0.1;
-    pointer-events: none;
-  }
 }
 
 .card {
@@ -49,13 +42,14 @@ body {
   border-radius: 20px;
   cursor: pointer;
   box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-  overflow: hidden;
 
+  /* Estado volteado */
   &.flipped {
     transform: rotateY(180deg);
   }
 }
 
+/* Ambas caras */
 .card-front, .card-back {
   position: absolute;
   width: 100%;
@@ -63,45 +57,27 @@ body {
   backface-visibility: hidden;
   border-radius: 20px;
   padding: 25px;
-  color: white;
+  top: 0;
+  left: 0;
 }
 
-/* Parte FRONTAL (Tema Stitch) */
+/* ========== FRONTAL (STITCH) ========== */
 .card-front {
   background: linear-gradient(45deg, $stitch-blue 0%, darken($stitch-blue, 15%) 100%);
+  transform: rotateY(0deg);
+  z-index: 2;
   border: 2px solid rgba(255,255,255,0.2);
 
-  &::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: url('../images/stitch-silhouette.png') no-repeat bottom right;
-    background-size: 120px;
-    opacity: 0.3;
-  }
-
+  /* Logo del banco */
   .bank-logo {
     font-size: 24px;
-    font-weight: 700;
+    color: white;
+    font-weight: bold;
     margin-bottom: 15px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
     text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
-    
-    &::before {
-      content: '';
-      display: block;
-      width: 30px;
-      height: 30px;
-      background: url('../images/stitch-icon.png') no-repeat center;
-      background-size: contain;
-    }
   }
 
+  /* Chip realista */
   .chip {
     width: 50px;
     height: 40px;
@@ -114,8 +90,8 @@ body {
     border-radius: 8px;
     margin: 15px 0;
     position: relative;
-    overflow: hidden;
     
+    /* Efecto de líneas del chip */
     &::after {
       content: '';
       position: absolute;
@@ -133,17 +109,18 @@ body {
     }
   }
 
+  /* Nombre */
   .name {
     font-family: 'Pacifico', cursive;
     font-size: 18px;
+    color: white;
     position: absolute;
     bottom: 20px;
     left: 25px;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
   }
 }
 
-/* Parte TRASERA (Romántica) */
+/* ========== TRASERA (ROMÁNTICA) ========== */
 .card-back {
   background: $romantic-gradient;
   transform: rotateY(180deg);
@@ -151,7 +128,9 @@ body {
   flex-direction: column;
   align-items: center;
   text-align: center;
+  color: white;
 
+  /* Balance */
   .balance-label {
     font-size: 16px;
     opacity: 0.9;
@@ -160,66 +139,38 @@ body {
 
   .balance {
     font-size: 32px;
-    font-weight: 700;
+    font-weight: bold;
     margin: 10px 0;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    
-    &::after {
-      content: '';
-      display: block;
-      width: 24px;
-      height: 24px;
-      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>');
-    }
   }
 
+  /* Mensaje */
   .message {
     font-size: 16px;
     line-height: 1.5;
     margin: 15px 0;
     font-family: 'Dancing Script', cursive;
-    max-width: 80%;
-    background: rgba(255,255,255,0.1);
     padding: 12px;
+    background: rgba(255,255,255,0.1);
     border-radius: 8px;
-    backdrop-filter: blur(3px);
+    max-width: 80%;
   }
 }
 
-/* Efectos */
+/* ========== EFECTOS ========== */
 .glitter {
-  /* Mantén el efecto anterior */
-}
-
-@keyframes float {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
-  100% { transform: translateY(0px); }
-}
-
-.stitch-float {
   position: absolute;
-  right: -30px;
-  bottom: -30px;
-  width: 150px;
-  height: 150px;
-  animation: float 3s ease-in-out infinite;
-  opacity: 0.8;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    45deg,
+    transparent 40%,
+    rgba(255,255,255,0.3) 50%,
+    transparent 60%
+  );
+  opacity: 0;
+  transition: opacity 0.2s;
 }
 
-@media (max-width: 480px) {
-  .card-container {
-    width: 280px;
-    
-    .card {
-      height: 180px;
-    }
-    
-    .stitch-float {
-      width: 120px;
-      height: 120px;
-    }
-  }
+.card:active .glitter {
+  opacity: 1;
 }
