@@ -1,26 +1,15 @@
-# Configuración de textos
-textos:
-  titulo_pagina: "Tarjeta Especial"
-  titulo_modal: "Acceso Exclusivo"
-  placeholder_clave: "Ingresa la clave secreta"
-  texto_boton: "Ver Regalo"
-  mensaje_error: "Clave incorrecta, intenta nuevamente"
-  saldo_inicial: "Saldo Inicial"
-  saldo_actual: "Saldo Actual"
-
-# Contenido personalizable
-nombre: "Nombre del Destinatario"
-mensaje: "¡Feliz Cumpleaños! Que tengas un día maravilloso."
+nombre: "YBM"
+mensaje: "Feliz cumpleaños 💖"
+saldo_inicial: 1000.00
+saldo_actual: 1000.00
 palabra_secreta: "nuez"
-monto_inicial: 1000.00
-monto_actual: 750.00
 
-# Colores originales (que funcionaban)
-colores:
-  frente: ["#2D2366", "#4D3B6B"]
-  detalle: "#F8D66D"
-  reverso: "#FFFFFF"
-
-# Efectos
 efectos:
   sonido: true
+  animaciones: true
+
+diseno:
+  colores:
+    frente: ["#2D2366", "#4D3B6B"]
+    detalle: "#F8D66D"
+    reverso: "#FFFFFF"
