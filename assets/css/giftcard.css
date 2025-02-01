@@ -4,19 +4,19 @@
   --color-detalle: #F8D66D;
 }
 
-/* Efecto de galaxia de fondo */
 .bg-galaxy {
   background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
+  min-height: 100vh;
   overflow: hidden;
 }
 
 .tarjeta {
-  width: min(90vw, 400px);
-  height: min(50vh, 250px);
+  width: min(95vw, 400px);
+  height: min(60vh, 250px);
   transform-style: preserve-3d;
   position: relative;
   cursor: pointer;
-  transition: all 0.8s cubic-bezier(0.4, 0.2, 0.2, 1);
+  transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
   perspective: 1000px;
   border: 2px solid rgba(255,255,255,0.1);
 }
@@ -25,12 +25,7 @@
   content: "";
   position: absolute;
   inset: -5px;
-  background: linear-gradient(
-      45deg,
-      var(--color-detalle) 0%,
-      transparent 50%,
-      var(--color-primario) 100%
-  );
+  background: linear-gradient(45deg, var(--color-detalle), transparent 50%, var(--color-primario));
   z-index: -1;
   filter: blur(20px);
 }
@@ -43,11 +38,7 @@
   border-radius: 20px;
   padding: 1.5rem;
   overflow: hidden;
-  background: linear-gradient(
-      135deg,
-      var(--color-primario) 0%,
-      var(--color-secundario) 100%
-  );
+  background: linear-gradient(135deg, var(--color-primario), var(--color-secundario));
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -55,22 +46,11 @@
 }
 
 .reverso {
-  background: linear-gradient(45deg, #ffffff 0%, #f8f9fa 100%);
+  background: linear-gradient(45deg, #ffffff, #f8f9fa);
   transform: rotateY(180deg);
   color: var(--color-primario);
 }
 
-/* Efecto holográfico dinámico */
-.tarjeta:hover .frente::after {
-  animation: hologram 3s infinite linear;
-}
-
-@keyframes hologram {
-  0% { opacity: 0.3; transform: translateX(-100%) skew(-45deg); }
-  100% { opacity: 0; transform: translateX(100%) skew(-45deg); }
-}
-
-/* Efecto de partículas */
 .particle {
   position: absolute;
   width: 8px;
@@ -78,4 +58,11 @@
   background: var(--color-detalle);
   border-radius: 50%;
   pointer-events: none;
+  filter: drop-shadow(0 0 5px rgba(248,214,109,0.5));
+}
+
+/* Animaciones */
+@keyframes holograma {
+  0% { transform: translateX(-100%) skewX(-45deg); opacity: 0.3; }
+  100% { transform: translateX(100%) skewX(-45deg); opacity: 0; }
 }

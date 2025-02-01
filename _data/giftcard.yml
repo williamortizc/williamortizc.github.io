@@ -1,16 +1,21 @@
-# Configuración principal
 nombre: "YBM"
 mensaje: "Feliz cumpleaños 💖"
 saldo_inicial: 1000.00
 saldo_actual: 1000.00
 palabra_secreta: "nuez"
 
-# Diseño
 colores:
-  primario: "#2D2366"
-  secundario: "#4D3B6B"
-  detalle: "#F8D66D"
-  
-# Efectos
-sonido_activado: true
-animacion_particulas: true
+  diurno:
+    primario: "#2D2366"
+    secundario: "#4D3B6B"
+    detalle: "#F8D66D"
+  nocturno:
+    primario: "#1A1A2E"
+    secundario: "#16213E"
+    detalle: "#E94560"
+
+efectos:
+  sonido: true
+  particulas: true
+  parallax: true
+  tema_auto: true
