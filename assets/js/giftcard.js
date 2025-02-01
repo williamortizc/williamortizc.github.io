@@ -1,62 +1,113 @@
----
----
-document.addEventListener('DOMContentLoaded', function() {
-    // Obtiene la contraseña desde el YAML (procesado por Liquid)
-    var giftCardSecret = "{{ site.data.giftcard.secret }}";
-    
-    var submitButton = document.getElementById("submit-password");
-    submitButton.addEventListener("click", function() {
-        var inputPassword = document.getElementById("secret-password").value;
-        if (inputPassword !== giftCardSecret) {
-            alert("Contraseña incorrecta.");
-            return;
-        }
-        // Contraseña correcta: se abre el sobre
-        var envelope = document.getElementById("envelope");
-        envelope.classList.add("open");
-        
-        // Inicia el confeti después de 500ms
-        setTimeout(function() {
-            launchConfetti();
-        }, 500);
+document.addEventListener('DOMContentLoaded', () => {
+  const config = {
+      sonido: {{ site.data.giftcard.sonido_activado | jsonify }},
+      particulas: {{ site.data.giftcard.animacion_particulas | jsonify }}
+  };
 
-        // Tras 1500ms (tiempo para la animación) se oculta el sobre y se muestra la tarjeta
-        setTimeout(function() {
-            document.getElementById("envelope-container").style.display = "none";
-            document.getElementById("gift-card-container").style.display = "block";
-        }, 1500);
-    });
+  // Sistema de Sonido
+  const sound = new Howl({
+      src: ['https://assets.mixkit.co/sfx/preview/mixkit-magic-sparkle-902.mp3'],
+      volume: 0.3
+  });
 
-    // Evento para el efecto flip en la tarjeta
-    var card = document.getElementById('gift-card');
-    if(card) {
-      card.addEventListener('click', function() {
-          card.classList.toggle('flipped');
+  // Validación de Contraseña
+  const modal = new bootstrap.Modal(document.getElementById('passwordModal'));
+  modal.show();
+
+  document.getElementById('passwordForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const input = document.getElementById('secretInput').value;
+      if(input === "{{ site.data.giftcard.palabra_secreta }}") {
+          if(config.sonido) sound.play();
+          iniciarExperiencia();
+          modal.hide();
+      } else {
+          document.getElementById('errorMessage').classList.remove('d-none');
+          document.getElementById('secretInput').classList.add('is-invalid');
+      }
+  });
+
+  function iniciarExperiencia() {
+      document.body.classList.remove('bg-galaxy');
+      document.querySelector('.d-none').style.display = 'block';
+      
+      // Animación Inicial
+      gsap.from('.tarjeta', {
+          duration: 2,
+          scale: 0,
+          rotationY: 180,
+          ease: "elastic.out(1, 0.3)",
+          onComplete: () => {
+              if(config.particulas) crearParticulasIniciales();
+          }
       });
-    }
+
+      // Efecto Parallax 3D
+      document.addEventListener('mousemove', (e) => {
+          const x = (window.innerWidth/2 - e.clientX)/30;
+          const y = (window.innerHeight/2 - e.clientY)/30;
+          gsap.to('.tarjeta', {rotationY: x, rotationX: y, duration: 2});
+      });
+
+      // Sistema de Flip
+      let flipped = false;
+      document.querySelector('.tarjeta').addEventListener('click', () => {
+          if(config.sonido) sound.play();
+          
+          gsap.to('.tarjeta', {
+              rotationY: flipped ? 0 : 180,
+              duration: 1.2,
+              ease: "power4.out",
+              onComplete: () => {
+                  if(config.particulas && !flipped) crearEfectoConfeti();
+              }
+          });
+          flipped = !flipped;
+      });
+  }
+
+  function crearParticulasIniciales() {
+      for(let i = 0; i < 30; i++) {
+          const p = document.createElement('div');
+          p.className = 'particle';
+          document.body.appendChild(p);
+          
+          gsap.fromTo(p, {
+              x: window.innerWidth/2,
+              y: window.innerHeight/2,
+              opacity: 1
+          }, {
+              x: gsap.utils.random(-200, 200),
+              y: gsap.utils.random(-200, 200),
+              opacity: 0,
+              duration: 2,
+              onComplete: () => p.remove()
+          });
+      }
+  }
+
+  function crearEfectoConfeti() {
+      for(let i = 0; i < 50; i++) {
+          const p = document.createElement('div');
+          p.className = 'particle';
+          p.style.background = `hsl(${gsap.utils.random(0,360)}, 70%, 60%)`;
+          document.body.appendChild(p);
+          
+          gsap.fromTo(p, {
+              x: window.innerWidth/2,
+              y: window.innerHeight/2,
+              opacity: 1,
+              scale: 0
+          }, {
+              x: gsap.utils.random(-300, 300),
+              y: gsap.utils.random(-300, 300),
+              scale: gsap.utils.random(0.5, 1.5),
+              opacity: 0,
+              duration: 3,
+              ease: "power4.out",
+              onComplete: () => p.remove()
+          });
+      }
+  }
 });
 
-// Función para lanzar confeti: crea varios elementos animados
-function launchConfetti() {
-    var confettiContainer = document.getElementById("confetti-container");
-    var colors = ['#FFC700', '#FF0000', '#2E3192', '#41BBC7', '#66A6FF'];
-    var confettiCount = 50;
-    for (var i = 0; i < confettiCount; i++) {
-        var confetti = document.createElement("div");
-        confetti.classList.add("confetti");
-        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-        confetti.style.left = Math.random() * 100 + "vw";
-        confetti.style.top = "-10px";
-        var size = Math.random() * 8 + 4; // Entre 4px y 12px
-        confetti.style.width = size + "px";
-        confetti.style.height = size + "px";
-        confetti.style.position = "absolute";
-        confetti.style.zIndex = "1000";
-        confetti.style.animation = "fall " + (Math.random() * 3 + 2) + "s linear " + (Math.random() * 0.5) + "s forwards";
-        confettiContainer.appendChild(confetti);
-    }
-    // Elimina los elementos de confeti pasados 5 segundos
-    setTimeout(function() {
-        confettiContainer.innerHTML = "";
-    }, 5000);
-}

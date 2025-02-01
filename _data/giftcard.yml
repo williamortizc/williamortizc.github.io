@@ -1,8 +1,16 @@
-# _data/giftcard.yml
-secret: "nuez"
-recipient: "YBM"
-message: "¡Feliz cumpleaños!"
-initial_balance: "$100.00"
-remaining_balance: "$100.00"
-# Gradiente con colores tipo Stitch (puedes modificar los colores a tu gusto)
-gradient: "linear-gradient(135deg, #89f7fe, #66a6ff)"
+# Configuración principal
+nombre: "YBM"
+mensaje: "Feliz cumpleaños 💖"
+saldo_inicial: 1000.00
+saldo_actual: 1000.00
+palabra_secreta: "nuez"
+
+# Diseño
+colores:
+  primario: "#2D2366"
+  secundario: "#4D3B6B"
+  detalle: "#F8D66D"
+  
+# Efectos
+sonido_activado: true
+animacion_particulas: true

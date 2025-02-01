@@ -1,104 +1,81 @@
-/* assets/css/giftcard.css */
+:root {
+  --color-primario: #2D2366;
+  --color-secundario: #4D3B6B;
+  --color-detalle: #F8D66D;
+}
 
-/* ===============================
-   Confeti
-   =============================== */
-   #confetti-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    overflow: hidden;
-    z-index: 1000;
-  }
-  
-  @keyframes fall {
-    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-    100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
-  }
-  
-  /* ===============================
-     Tarjeta de Regalo (Flip)
-     =============================== */
-  .card-container {
-    perspective: 1000px;
-  }
-  
-  .card {
-    width: 350px;
-    height: 220px;
-    position: relative;
-    transition: transform 0.8s;
-    transform-style: preserve-3d;
-    cursor: pointer;
-    margin: auto;
-  }
-  
-  .card.flipped {
-    transform: rotateY(180deg);
-  }
-  
-  .card-face {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    backface-visibility: hidden;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    box-sizing: border-box;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-  }
-  
-  .card-back {
-    background: #333;
-    color: #fff;
-    transform: rotateY(180deg);
-    text-align: center;
-  }
-  
-  /* ===============================
-     Sobre y Formulario de Contraseña
-     =============================== */
-  #envelope {
-    width: 300px;
-    height: 180px;
-    position: relative;
-    margin-bottom: 20px;
-  }
-  
-  .envelope-body {
-    width: 100%;
-    height: 60%;
-    background: #fff;
-    border: 2px solid #ccc;
-    border-bottom: none;
-    border-radius: 5px 5px 0 0;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-    position: absolute;
-    bottom: 0;
-  }
-  
-  .envelope-flap {
-    width: 100%;
-    height: 0;
-    border-left: 150px solid transparent;
-    border-right: 150px solid transparent;
-    border-top: 60px solid #fff;
-    border-top: 2px solid #ccc;
-    position: absolute;
-    top: 0;
-    left: 0;
-    transform-origin: top;
-    transition: transform 1s ease;
-  }
-  
-  #envelope.open .envelope-flap {
-    transform: rotateX(-180deg);
-  }
-  
+/* Efecto de galaxia de fondo */
+.bg-galaxy {
+  background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
+  overflow: hidden;
+}
+
+.tarjeta {
+  width: min(90vw, 400px);
+  height: min(50vh, 250px);
+  transform-style: preserve-3d;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.8s cubic-bezier(0.4, 0.2, 0.2, 1);
+  perspective: 1000px;
+  border: 2px solid rgba(255,255,255,0.1);
+}
+
+.tarjeta::before {
+  content: "";
+  position: absolute;
+  inset: -5px;
+  background: linear-gradient(
+      45deg,
+      var(--color-detalle) 0%,
+      transparent 50%,
+      var(--color-primario) 100%
+  );
+  z-index: -1;
+  filter: blur(20px);
+}
+
+.cara {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 20px;
+  padding: 1.5rem;
+  overflow: hidden;
+  background: linear-gradient(
+      135deg,
+      var(--color-primario) 0%,
+      var(--color-secundario) 100%
+  );
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 0 30px rgba(255,255,255,0.1);
+}
+
+.reverso {
+  background: linear-gradient(45deg, #ffffff 0%, #f8f9fa 100%);
+  transform: rotateY(180deg);
+  color: var(--color-primario);
+}
+
+/* Efecto holográfico dinámico */
+.tarjeta:hover .frente::after {
+  animation: hologram 3s infinite linear;
+}
+
+@keyframes hologram {
+  0% { opacity: 0.3; transform: translateX(-100%) skew(-45deg); }
+  100% { opacity: 0; transform: translateX(100%) skew(-45deg); }
+}
+
+/* Efecto de partículas */
+.particle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: var(--color-detalle);
+  border-radius: 50%;
+  pointer-events: none;
+}

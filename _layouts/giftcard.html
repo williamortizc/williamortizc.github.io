@@ -1,55 +1,48 @@
-<!-- _layouts/giftcard.html -->
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-bs-theme="dark">
 <head>
-  <meta charset="UTF-8">
-  <title>{{ page.title }}</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- Bootstrap CSS vía CDN -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUa6mY0J1h6W+6Q4U6V+b8U6nwbj5Yh0mXwZPp3QQB4tV8tY5sv9+g2FQ2UA" crossorigin="anonymous">
-  <!-- Nuestro CSS personalizado -->
-  <link rel="stylesheet" href="{{ '/assets/css/giftcard.css' | relative_url }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💌 Tarjeta Especial</title>
+    
+    <!-- Dependencias CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Estilos locales -->
+    <link rel="stylesheet" href="{{ '/assets/css/giftcard.css' | relative_url }}">
 </head>
-<body>
-  <!-- Contenedor del confeti -->
-  <div id="confetti-container"></div>
-  
-  <!-- Contenedor del sobre y formulario, centrado con Bootstrap -->
-  <div id="envelope-container" class="container vh-100 d-flex flex-column justify-content-center align-items-center">
-    <div id="envelope">
-      <div class="envelope-flap"></div>
-      <div class="envelope-body"></div>
-    </div>
-    <div id="password-form" class="w-100" style="max-width: 300px;">
-      <div class="input-group">
-        <input type="password" id="secret-password" class="form-control" placeholder="Ingresa la palabra secreta">
-        <button class="btn btn-primary" id="submit-password" type="button">Enviar</button>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Contenedor de la tarjeta de regalo, inicialmente oculto y centrado -->
-  <div id="gift-card-container" class="container vh-100 d-flex justify-content-center align-items-center" style="display: none;">
-    <div class="card-container">
-      <div class="card" id="gift-card">
-        <!-- Cara frontal: utiliza el gradiente definido en giftcard.yml -->
-        <div class="card-face card-front" style="background: {{ site.data.giftcard.gradient }};">
-          <h2>Tarjeta de Regalo</h2>
-          <p>Para: {{ site.data.giftcard.recipient }}</p>
-          <p>Toca para ver tu regalo.</p>
+<body class="d-flex justify-content-center align-items-center min-vh-100 bg-galaxy">
+    
+    <!-- Modal de Seguridad -->
+    <div class="modal fade" id="passwordModal" data-bs-backdrop="static" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-space">
+                <div class="modal-body text-center">
+                    <i class="fas fa-lock fa-3x text-warning mb-3"></i>
+                    <h3 class="text-light mb-4">Ingresa la Palabra Mágica</h3>
+                    <form id="passwordForm">
+                        <input type="password" id="secretInput" class="form-control form-control-lg mb-3" 
+                               placeholder="✦✧✦✧✦" required>
+                        <button type="submit" class="btn btn-warning btn-lg">
+                            <i class="fas fa-unlock"></i> Ver Regalo
+                        </button>
+                    </form>
+                    <p id="errorMessage" class="text-danger mt-3 d-none">¡Palabra incorrecta! 😢</p>
+                </div>
+            </div>
         </div>
-        <!-- Cara trasera: muestra el mensaje y saldos -->
-        <div class="card-face card-back">
-          <h2>¡Sorpresa!</h2>
-          <p>{{ site.data.giftcard.message }}</p>
-          <p>Saldo inicial: {{ site.data.giftcard.initial_balance }}</p>
-          <p>Saldo restante: {{ site.data.giftcard.remaining_balance }}</p>
-        </div>
-      </div>
     </div>
-  </div>
-  
-  <!-- Se carga el JavaScript personalizado -->
-  <script src="{{ '/assets/js/giftcard.js' | relative_url }}"></script>
+
+    <!-- Contenido de la Tarjeta -->
+    <div class="d-none"> <!-- Oculto hasta validación -->
+        {{ content }}
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
+    <script src="{{ '/assets/js/giftcard.js' | relative_url }}"></script>
 </body>
 </html>
