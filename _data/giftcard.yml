@@ -1,27 +1,26 @@
-# Configuración principal
+# Configuración de textos
 textos:
-  titulo_pagina: "💳 Tarjeta Especial"
+  titulo_pagina: "Tarjeta Especial"
   titulo_modal: "Acceso Exclusivo"
-  placeholder_password: "Ingresa la clave secreta"
+  placeholder_clave: "Ingresa la clave secreta"
   texto_boton: "Ver Regalo"
-  mensaje_error: "Clave incorrecta, verifica nuevamente"
-  etiqueta_saldo: "Saldo Actual"
-  etiqueta_saldo_inicial: "Saldo Inicial"
+  mensaje_error: "Clave incorrecta, intenta nuevamente"
+  saldo_inicial: "Saldo Inicial"
+  saldo_actual: "Saldo Actual"
 
 # Contenido personalizable
-destinatario: "Nombre del Destinatario"
-mensaje_personalizado: "¡Feliz Cumpleaños! Que tengas un día maravilloso."
+nombre: "Nombre del Destinatario"
+mensaje: "¡Feliz Cumpleaños! Que tengas un día maravilloso."
 palabra_secreta: "nuez"
-saldo_inicial: 1000.00
-saldo_actual: 750.00
+monto_inicial: 1000.00
+monto_actual: 750.00
 
-# Colores originales (degradado morado)
+# Colores originales (que funcionaban)
 colores:
-  frente: ["#2D2366", "#4D3B6B"]  # Degradado morado
-  detalle: "#F8D66D"              # Amarillo
-  reverso: "#FFFFFF"              # Blanco
+  frente: ["#2D2366", "#4D3B6B"]
+  detalle: "#F8D66D"
+  reverso: "#FFFFFF"
 
 # Efectos
 efectos:
   sonido: true
-  animaciones: true
