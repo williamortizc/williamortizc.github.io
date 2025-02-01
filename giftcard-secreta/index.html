@@ -5,26 +5,28 @@ permalink: /9f8s7d6f/
 
 {% assign gc = site.data.giftcard %}
 
-<div class="tarjeta">
-    <div class="cara frente">
-        <div class="d-flex justify-content-between align-items-center">
-            <div class="chip"></div>
-            <i class="bi bi-heart-fill h3" style="color: {{ gc.diseno.colores.detalle }}"></i>
-        </div>
-        <h2 class="text-center mb-4">{{ gc.nombre }}</h2>
-        <div class="d-flex justify-content-between align-items-center">
-            <div>
-                <small>Saldo de Amor</small>
-                <div class="h2">${{ gc.saldo_actual }}</div>
+<div class="tarjeta-container">
+    <div class="tarjeta">
+        <div class="cara frente">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="chip"></div>
+                <i class="bi bi-heart-fill h3" style="color: {{ gc.diseno.colores.detalle }}"></i>
             </div>
-            <i class="bi bi-credit-card-fill h1 opacity-25"></i>
+            <h2 class="text-center mb-4">{{ gc.nombre }}</h2>
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <small>Saldo de Amor</small>
+                    <div class="h2">${{ gc.saldo_actual }}</div>
+                </div>
+                <i class="bi bi-credit-card-fill h1 opacity-25"></i>
+            </div>
         </div>
-    </div>
-    <div class="cara reverso">
-        <div class="h-100 d-flex flex-column justify-content-center text-center">
-            <i class="bi bi-balloon-heart-fill h1 text-danger mb-3"></i>
-            <p class="lead px-4">{{ gc.mensaje }}</p>
-            <small class="text-muted mt-3">Saldo inicial: ${{ gc.saldo_inicial }}</small>
+        <div class="cara reverso">
+            <div class="h-100 d-flex flex-column justify-content-center text-center">
+                <i class="bi bi-balloon-heart-fill h1 text-danger mb-3"></i>
+                <p class="lead px-4">{{ gc.mensaje }}</p>
+                <small class="text-muted mt-3">Saldo inicial: ${{ gc.saldo_inicial }}</small>
+            </div>
         </div>
     </div>
 </div>

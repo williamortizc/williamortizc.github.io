@@ -8,17 +8,21 @@ body {
   font-family: 'Arial', sans-serif;
 }
 
+/* Contenedor principal para perspectiva 3D */
+.tarjeta-container {
+  perspective: 1000px;
+}
+
 .tarjeta {
   width: 350px;
   height: 220px;
-  border-radius: 20px;
-  perspective: 1000px;
-  cursor: pointer;
   position: relative;
   transform-style: preserve-3d;
-  transition: transform 0.8s;
+  transition: all 0.8s ease;
+  cursor: pointer;
 }
 
+/* Ambas caras posicionadas absolutamente */
 .cara {
   position: absolute;
   width: 100%;
@@ -32,23 +36,26 @@ body {
   box-shadow: 0 10px 20px rgba(0,0,0,0.3);
 }
 
+/* Frente visible por defecto */
 .frente {
   background: linear-gradient(45deg, #2D2366, #4D3B6B);
   color: white;
   transform: rotateY(0deg);
 }
 
+/* Reverso girado 180 grados */
 .reverso {
   background: white;
   color: #2D2366;
   transform: rotateY(180deg);
 }
 
+/* Clase para voltear */
 .volteada {
   transform: rotateY(180deg);
 }
 
-/* Efectos Especiales */
+/* Efecto brillo del chip */
 .chip {
   width: 40px;
   height: 30px;
