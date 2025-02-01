@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const inputContraseña = document.getElementById('inputContraseña');
     const mensajeError = document.getElementById('mensajeError');
     const contenidoPrincipal = document.getElementById('contenidoPrincipal');
+    let tarjeta = null;
 
     // Mostrar modal al cargar
     modal.show();
@@ -24,12 +25,11 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
         
         if (inputContraseña.value === config.contraseña) {
-            // Contraseña correcta
             modal.hide();
             contenidoPrincipal.classList.remove('d-none');
+            tarjeta = document.querySelector('.tarjeta');
             if(config.animaciones) iniciarAnimaciones();
         } else {
-            // Contraseña incorrecta
             inputContraseña.classList.add('is-invalid');
             mensajeError.classList.remove('d-none');
             if(config.sonido) reproducirSonidoError();
@@ -43,15 +43,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Animaciones
     function iniciarAnimaciones() {
-        gsap.from('.tarjeta', {
+        gsap.from(tarjeta, {
             duration: 1.5,
             scale: 0,
             rotationY: 180,
             ease: "elastic.out(1, 0.5)"
         });
 
-        document.querySelector('.tarjeta').addEventListener('click', () => {
-            document.querySelector('.tarjeta').classList.toggle('volteada');
+        // Evento click para el flip
+        tarjeta.addEventListener('click', () => {
+            tarjeta.classList.toggle('volteada');
         });
     }
 

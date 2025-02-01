@@ -15,6 +15,8 @@ body {
   perspective: 1000px;
   cursor: pointer;
   position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.8s;
 }
 
 .cara {
@@ -27,20 +29,19 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  transition: transform 0.8s;
-  transform-style: preserve-3d;
   box-shadow: 0 10px 20px rgba(0,0,0,0.3);
 }
 
 .frente {
   background: linear-gradient(45deg, #2D2366, #4D3B6B);
   color: white;
+  transform: rotateY(0deg);
 }
 
 .reverso {
   background: white;
-  transform: rotateY(180deg);
   color: #2D2366;
+  transform: rotateY(180deg);
 }
 
 .volteada {
