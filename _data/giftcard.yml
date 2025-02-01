@@ -1,28 +1,25 @@
 # Configuración principal
 textos:
-  titulo_pagina: "🎁 Tarjeta de Regalo Especial"
-  titulo_modal: "¡Acceso Especial!"
+  titulo_pagina: "💳 Tarjeta Especial"
+  titulo_modal: "Acceso Exclusivo"
   placeholder_password: "Ingresa la clave secreta"
   texto_boton: "Ver Regalo"
-  mensaje_error: "❌ Clave incorrecta, intenta de nuevo"
-  etiqueta_saldo: "Saldo Disponible"
+  mensaje_error: "Clave incorrecta, verifica nuevamente"
+  etiqueta_saldo: "Saldo Actual"
   etiqueta_saldo_inicial: "Saldo Inicial"
-  texto_frente: "Para Mi Mejor Amigo"
-  texto_reverso: "¡Feliz Cumpleaños!"
 
-# Configuración personalizable
-destinatario: "YBM"
-mensaje_personalizado: "Gracias por ser tan especial. ¡Que tengas un día increíble!"
+# Contenido personalizable
+destinatario: "Nombre del Destinatario"
+mensaje_personalizado: "¡Feliz Cumpleaños! Que tengas un día maravilloso."
 palabra_secreta: "nuez"
-saldo_inicial: 500.00
-saldo_actual: 350.00
+saldo_inicial: 1000.00
+saldo_actual: 750.00
 
-# Diseño (colores de Stitch)
+# Colores originales (degradado morado)
 colores:
-  primario: "#2D2366"      # Azul oscuro
-  secundario: "#4D3B6B"    # Púrpura
-  detalle: "#F8D66D"       # Amarillo Stitch
-  reverso: "#FFFFFF"       # Blanco
+  frente: ["#2D2366", "#4D3B6B"]  # Degradado morado
+  detalle: "#F8D66D"              # Amarillo
+  reverso: "#FFFFFF"              # Blanco
 
 # Efectos
 efectos:

@@ -5,14 +5,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const CONFIG = {
         textos: {{ site.data.giftcard.textos | jsonify }},
         datos: {{ site.data.giftcard | jsonify }},
-        sonido: {{ site.data.giftcard.efectos.sonido }}
+        efectos: {{ site.data.giftcard.efectos | jsonify }}
     };
 
-    // Sonidos
+    // Sonidos verificados
     const SONIDOS = {
-        flip: new Howl({ src: ['https://assets.mixkit.co/sfx/preview/mixkit-paper-flip-1936.mp3'], volume: 0.5 }),
-        error: new Howl({ src: ['https://assets.mixkit.co/sfx/preview/mixkit-wrong-answer-fail-notification-946.mp3'], volume: 0.7 }),
-        exito: new Howl({ src: ['https://assets.mixkit.co/sfx/preview/mixkit-magic-sparkle-902.mp3'], volume: 0.4 })
+        flip: new Howl({ src: ['https://assets.mixkit.co/active_storage/sfx/1936/1936-preview.mp3'] }),
+        error: new Howl({ src: ['https://assets.mixkit.co/active_storage/sfx/946/946-preview.mp3'] }),
+        exito: new Howl({ src: ['https://assets.mixkit.co/active_storage/sfx/902/902-preview.mp3'] })
     };
 
     // Elementos
@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     function accesoCorrecto() {
-        if (CONFIG.sonido) SONIDOS.exito.play();
+        if (CONFIG.efectos.sonido) SONIDOS.exito.play();
         modal.hide();
         mostrarTarjeta();
         configurarFlip();
@@ -45,13 +45,13 @@ document.addEventListener('DOMContentLoaded', () => {
     function accesoIncorrecto() {
         inputClave.classList.add('is-invalid');
         mensajeError.classList.remove('d-none');
-        if (CONFIG.sonido) SONIDOS.error.play();
+        if (CONFIG.efectos.sonido) SONIDOS.error.play();
     }
 
     function mostrarTarjeta() {
         contenidoTarjeta.classList.remove('d-none');
-        if (CONFIG.datos.efectos.animaciones) {
-            gsap.from(contenidoTarjeta, {
+        if (CONFIG.efectos.animaciones) {
+            gsap.from('.tarjeta', {
                 duration: 1.5,
                 scale: 0,
                 rotationY: 180,
@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const tarjeta = document.querySelector('.tarjeta');
         tarjeta.addEventListener('click', () => {
             tarjeta.classList.toggle('volteada');
-            if (CONFIG.sonido) SONIDOS.flip.play();
+            if (CONFIG.efectos.sonido) SONIDOS.flip.play();
         });
     }
 });
