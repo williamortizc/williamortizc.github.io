@@ -2,65 +2,76 @@
 ---
 
 document.addEventListener('DOMContentLoaded', () => {
-    const config = {
-        contraseña: "{{ site.data.giftcard.palabra_secreta }}",
-        sonido: {{ site.data.giftcard.efectos.sonido }},
-        animaciones: {{ site.data.giftcard.efectos.animaciones }}
+    // Configuración
+    const CONFIG = {
+        CLAVE: "{{ site.data.giftcard.palabra_secreta }}",
+        SONIDO: {{ site.data.giftcard.efectos.sonido }},
+        ANIMACIONES: {{ site.data.giftcard.efectos.animaciones }}
     };
 
-    const modal = new bootstrap.Modal('#modalSeguridad');
-    const formulario = document.getElementById('formContraseña');
-    const inputContraseña = document.getElementById('inputContraseña');
+    // Elementos
+    const modal = new bootstrap.Modal('#modalAcceso');
+    const form = document.getElementById('formAcceso');
+    const inputClave = document.getElementById('inputClave');
     const mensajeError = document.getElementById('mensajeError');
-    const contenidoPrincipal = document.getElementById('contenidoPrincipal');
+    const contenidoTarjeta = document.getElementById('contenidoTarjeta');
     let tarjeta = null;
 
+    // Sonidos
+    const SONIDOS = {
+        exito: new Howl({ src: ['https://assets.mixkit.co/sfx/preview/mixkit-magic-sparkle-902.mp3'] }),
+        error: new Howl({ src: ['https://assets.mixkit.co/sfx/preview/mixkit-wrong-answer-fail-notification-946.mp3'] }),
+        flip: new Howl({ src: ['https://assets.mixkit.co/sfx/preview/mixkit-paper-flip-1936.mp3'] })
+    };
+
+    // Inicialización
     modal.show();
 
-    formulario.addEventListener('submit', (e) => {
+    // Eventos
+    form.addEventListener('submit', (e) => {
         e.preventDefault();
-        
-        if (inputContraseña.value === config.contraseña) {
-            modal.hide();
-            contenidoPrincipal.classList.remove('d-none');
-            tarjeta = document.querySelector('.tarjeta');
-            
-            // Animación inicial
-            if(config.animaciones) {
-                gsap.from(tarjeta, {
-                    duration: 1.5,
-                    scale: 0,
-                    rotationY: 180,
-                    ease: "elastic.out(1, 0.5)"
-                });
-            }
+        validarAcceso();
+    });
 
-            // Evento click para voltear
-            tarjeta.addEventListener('click', () => {
-                tarjeta.classList.toggle('volteada');
-                
-                // Sonido opcional
-                if(config.sonido) {
-                    new Howl({
-                        src: ['https://assets.mixkit.co/sfx/preview/mixkit-paper-flip-1936.mp3'],
-                        volume: 0.3
-                    }).play();
-                }
-            });
-            
+    // Funciones principales
+    function validarAcceso() {
+        if (inputClave.value === CONFIG.CLAVE) {
+            accesoCorrecto();
         } else {
-            inputContraseña.classList.add('is-invalid');
-            mensajeError.classList.remove('d-none');
-            if(config.sonido) {
-                new Howl({
-                    src: ['https://assets.mixkit.co/sfx/preview/mixkit-wrong-answer-fail-notification-946.mp3'],
-                    volume: 0.3
-                }).play();
-            }
+            accesoDenegado();
         }
-    });
+    }
 
-    document.getElementById('botonMostrarContraseña').addEventListener('click', () => {
-        inputContraseña.type = inputContraseña.type === 'password' ? 'text' : 'password';
-    });
+    function accesoCorrecto() {
+        if (CONFIG.SONIDO) SONIDOS.exito.play();
+        modal.hide();
+        mostrarTarjeta();
+        inicializarFlip();
+    }
+
+    function accesoDenegado() {
+        inputClave.classList.add('is-invalid');
+        mensajeError.classList.remove('d-none');
+        if (CONFIG.SONIDO) SONIDOS.error.play();
+    }
+
+    function mostrarTarjeta() {
+        contenidoTarjeta.classList.remove('d-none');
+        if (CONFIG.ANIMACIONES) {
+            gsap.from(contenidoTarjeta, {
+                duration: 1.5,
+                scale: 0,
+                rotationY: 180,
+                ease: "elastic.out(1, 0.5)"
+            });
+        }
+    }
+
+    function inicializarFlip() {
+        tarjeta = document.querySelector('.tarjeta');
+        tarjeta.addEventListener('click', () => {
+            tarjeta.classList.toggle('volteada');
+            if (CONFIG.SONIDO) SONIDOS.flip.play();
+        });
+    }
 });
