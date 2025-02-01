@@ -3,38 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ site.data.giftcard.textos.titulo_pagina }}</title>
+    <title>💝 Tarjeta Especial</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ '/assets/css/giftcard.css' | relative_url }}">
 </head>
 <body>
-    <!-- Modal -->
-    <div class="modal fade" id="modalAcceso" data-bs-backdrop="static" tabindex="-1">
+    <!-- Modal de Acceso -->
+    <div class="modal fade" id="modalPrincipal" data-bs-backdrop="static" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content bg-dark text-light">
                 <div class="modal-body text-center">
-                    <h3 class="mb-4">{{ site.data.giftcard.textos.titulo_modal }}</h3>
-                    <form id="formClave">
+                    <h3 class="mb-4">🔐 Ingresa tu clave secreta</h3>
+                    <form id="formularioAcceso">
                         <input 
                             type="password" 
-                            id="inputClave" 
-                            class="form-control mb-3" 
-                            placeholder="{{ site.data.giftcard.textos.placeholder_clave }}"
+                            id="claveAcceso" 
+                            class="form-control form-control-lg mb-3 text-center" 
+                            placeholder="Nuestra palabra especial"
                             required
                         >
-                        <button type="submit" class="btn btn-primary w-100">
-                            {{ site.data.giftcard.textos.texto_boton }}
+                        <button type="submit" class="btn btn-danger btn-lg w-100">
+                            🎁 Ver mi regalo
                         </button>
                     </form>
                     <div id="mensajeError" class="alert alert-danger mt-3 d-none">
-                        {{ site.data.giftcard.textos.mensaje_error }}
+                        ❌ ¡Clave incorrecta, amor mío!
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Tarjeta -->
+    <!-- Contenido de la Tarjeta -->
     <main id="contenidoTarjeta" class="d-none">
         {{ content }}
     </main>
