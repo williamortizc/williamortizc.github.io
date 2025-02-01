@@ -2,76 +2,76 @@
 ---
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Configuración
+    // 1. Configuración inicial
     const CONFIG = {
-        CLAVE: "{{ site.data.giftcard.palabra_secreta }}",
-        SONIDO: {{ site.data.giftcard.efectos.sonido }},
-        ANIMACIONES: {{ site.data.giftcard.efectos.animaciones }}
+        CLAVE_CORRECTA: "{{ site.data.giftcard.palabra_secreta }}",
+        SONIDO_ACTIVADO: {{ site.data.giftcard.efectos.sonido }}
     };
 
-    // Elementos
-    const modal = new bootstrap.Modal('#modalAcceso');
-    const form = document.getElementById('formAcceso');
-    const inputClave = document.getElementById('inputClave');
+    // 2. Elementos del DOM
+    const modal = new bootstrap.Modal(document.getElementById('modalPrincipal'));
+    const formulario = document.getElementById('formularioAcceso');
+    const inputClave = document.getElementById('claveAcceso');
     const mensajeError = document.getElementById('mensajeError');
     const contenidoTarjeta = document.getElementById('contenidoTarjeta');
-    let tarjeta = null;
 
-    // Sonidos
+    // 3. Sonidos pre-cargados
     const SONIDOS = {
-        exito: new Howl({ src: ['https://assets.mixkit.co/sfx/preview/mixkit-magic-sparkle-902.mp3'] }),
-        error: new Howl({ src: ['https://assets.mixkit.co/sfx/preview/mixkit-wrong-answer-fail-notification-946.mp3'] }),
-        flip: new Howl({ src: ['https://assets.mixkit.co/sfx/preview/mixkit-paper-flip-1936.mp3'] })
+        EXITO: new Howl({ src: ['https://assets.mixkit.co/sfx/preview/mixkit-magic-sparkle-902.mp3'], volume: 0.3 }),
+        ERROR: new Howl({ src: ['https://assets.mixkit.co/sfx/preview/mixkit-wrong-answer-fail-notification-946.mp3'], volume: 0.5 }),
+        FLIP: new Howl({ src: ['https://assets.mixkit.co/sfx/preview/mixkit-paper-flip-1936.mp3'], volume: 0.4 })
     };
 
-    // Inicialización
+    // 4. Mostrar modal al iniciar
     modal.show();
 
-    // Eventos
-    form.addEventListener('submit', (e) => {
+    // 5. Manejar envío del formulario
+    formulario.addEventListener('submit', (e) => {
         e.preventDefault();
-        validarAcceso();
+        validarClave(inputClave.value);
     });
 
-    // Funciones principales
-    function validarAcceso() {
-        if (inputClave.value === CONFIG.CLAVE) {
-            accesoCorrecto();
+    // 6. Función de validación
+    function validarClave(clave) {
+        if (clave === CONFIG.CLAVE_CORRECTA) {
+            accesoExitoso();
         } else {
             accesoDenegado();
         }
     }
 
-    function accesoCorrecto() {
-        if (CONFIG.SONIDO) SONIDOS.exito.play();
+    // 7. Acceso correcto
+    function accesoExitoso() {
+        if (CONFIG.SONIDO_ACTIVADO) SONIDOS.EXITO.play();
         modal.hide();
         mostrarTarjeta();
-        inicializarFlip();
+        configurarFlip();
     }
 
+    // 8. Acceso denegado
     function accesoDenegado() {
         inputClave.classList.add('is-invalid');
         mensajeError.classList.remove('d-none');
-        if (CONFIG.SONIDO) SONIDOS.error.play();
+        if (CONFIG.SONIDO_ACTIVADO) SONIDOS.ERROR.play();
     }
 
+    // 9. Mostrar tarjeta
     function mostrarTarjeta() {
         contenidoTarjeta.classList.remove('d-none');
-        if (CONFIG.ANIMACIONES) {
-            gsap.from(contenidoTarjeta, {
-                duration: 1.5,
-                scale: 0,
-                rotationY: 180,
-                ease: "elastic.out(1, 0.5)"
-            });
-        }
+        gsap.from(contenidoTarjeta, {
+            duration: 1.5,
+            scale: 0,
+            rotationY: 180,
+            ease: "elastic.out(1, 0.5)"
+        });
     }
 
-    function inicializarFlip() {
-        tarjeta = document.querySelector('.tarjeta');
+    // 10. Configurar efecto flip
+    function configurarFlip() {
+        const tarjeta = document.querySelector('.tarjeta');
         tarjeta.addEventListener('click', () => {
             tarjeta.classList.toggle('volteada');
-            if (CONFIG.SONIDO) SONIDOS.flip.play();
+            if (CONFIG.SONIDO_ACTIVADO) SONIDOS.FLIP.play();
         });
     }
 });
