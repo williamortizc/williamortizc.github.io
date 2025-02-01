@@ -5,36 +5,40 @@
   <meta charset="UTF-8">
   <title>{{ page.title }}</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- Se carga el CSS específico para la giftcard -->
+  <!-- Bootstrap CSS vía CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUa6mY0J1h6W+6Q4U6V+b8U6nwbj5Yh0mXwZPp3QQB4tV8tY5sv9+g2FQ2UA" crossorigin="anonymous">
+  <!-- Nuestro CSS personalizado -->
   <link rel="stylesheet" href="{{ '/assets/css/giftcard.css' | relative_url }}">
 </head>
 <body>
-  <!-- Contenedor para el confeti (se activará al abrir el sobre) -->
+  <!-- Contenedor del confeti -->
   <div id="confetti-container"></div>
-
-  <!-- Contenedor del sobre y formulario de contraseña -->
-  <div id="envelope-container">
+  
+  <!-- Contenedor del sobre y formulario, centrado con Bootstrap -->
+  <div id="envelope-container" class="container vh-100 d-flex flex-column justify-content-center align-items-center">
     <div id="envelope">
       <div class="envelope-flap"></div>
       <div class="envelope-body"></div>
     </div>
-    <div id="password-form">
-      <input type="password" id="secret-password" placeholder="Ingresa la palabra secreta">
-      <button id="submit-password">Enviar</button>
+    <div id="password-form" class="w-100" style="max-width: 300px;">
+      <div class="input-group">
+        <input type="password" id="secret-password" class="form-control" placeholder="Ingresa la palabra secreta">
+        <button class="btn btn-primary" id="submit-password" type="button">Enviar</button>
+      </div>
     </div>
   </div>
-
-  <!-- Contenedor de la tarjeta de regalo (inicialmente oculto) -->
-  <div id="gift-card-container" style="display: none;">
+  
+  <!-- Contenedor de la tarjeta de regalo, inicialmente oculto y centrado -->
+  <div id="gift-card-container" class="container vh-100 d-flex justify-content-center align-items-center" style="display: none;">
     <div class="card-container">
       <div class="card" id="gift-card">
-        <!-- Cara frontal: se utiliza el gradiente definido en giftcard.yml -->
+        <!-- Cara frontal: utiliza el gradiente definido en giftcard.yml -->
         <div class="card-face card-front" style="background: {{ site.data.giftcard.gradient }};">
           <h2>Tarjeta de Regalo</h2>
           <p>Para: {{ site.data.giftcard.recipient }}</p>
           <p>Toca para ver tu regalo.</p>
         </div>
-        <!-- Cara trasera: muestra el mensaje y los saldos -->
+        <!-- Cara trasera: muestra el mensaje y saldos -->
         <div class="card-face card-back">
           <h2>¡Sorpresa!</h2>
           <p>{{ site.data.giftcard.message }}</p>
@@ -45,7 +49,7 @@
     </div>
   </div>
   
-  <!-- Se carga el JavaScript para la funcionalidad -->
+  <!-- Se carga el JavaScript personalizado -->
   <script src="{{ '/assets/js/giftcard.js' | relative_url }}"></script>
 </body>
 </html>

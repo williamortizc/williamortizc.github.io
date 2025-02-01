@@ -1,6 +1,6 @@
 # _data/giftcard.yml
 secret: "nuez"
-recipient: "Al amor de mi vida"
+recipient: "YBM"
 message: "¡Feliz cumpleaños!"
 initial_balance: "$100.00"
 remaining_balance: "$100.00"
