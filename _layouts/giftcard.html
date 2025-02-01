@@ -1,41 +1,43 @@
 <!DOCTYPE html>
-<html lang="es" data-bs-theme="dark">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>💝 Tarjeta Especial</title>
-    
-    <!-- Dependencias -->
+    <title>💌 Tarjeta de Amor</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="{{ '/assets/css/giftcard.css' | relative_url }}">
 </head>
-<body class="d-flex justify-content-center align-items-center min-vh-100 bg-galaxy">
-    
+<body>
     <!-- Modal de Seguridad -->
-    <div class="modal fade" id="passwordModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+    <div class="modal fade" id="modalSeguridad" data-bs-backdrop="static" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content bg-dark border border-warning">
+            <div class="modal-content bg-dark text-light">
                 <div class="modal-body text-center">
-                    <div class="mb-4">
-                        <i class="fas fa-lock fa-4x text-warning"></i>
-                        <h3 class="text-light mt-3">Ingresa Nuestra Palabra Secreta</h3>
-                    </div>
-                    <form id="passwordForm">
+                    <i class="bi bi-heart-fill h1 text-danger"></i>
+                    <h3 class="my-4">Ingresa la palabra secreta</h3>
+                    <form id="formContraseña">
                         <div class="input-group mb-3">
-                            <input type="password" id="secretInput" 
-                                   class="form-control form-control-lg border-warning" 
-                                   placeholder="✦✧✦✧✦" required>
-                            <button class="btn btn-warning" type="button" id="togglePassword">
-                                <i class="fas fa-eye"></i>
+                            <input 
+                                type="password" 
+                                id="inputContraseña" 
+                                class="form-control form-control-lg"
+                                placeholder="Palabra mágica"
+                                required
+                            >
+                            <button 
+                                class="btn btn-outline-light" 
+                                type="button" 
+                                id="botonMostrarContraseña"
+                            >
+                                👀
                             </button>
                         </div>
-                        <button type="submit" class="btn btn-warning btn-lg w-100">
-                            <i class="fas fa-unlock-alt"></i> Ver Regalo
+                        <button type="submit" class="btn btn-danger btn-lg w-100">
+                            🎁 Ver sorpresa
                         </button>
                     </form>
-                    <div id="errorMessage" class="alert alert-danger mt-3 d-none">
-                        <i class="fas fa-times-circle"></i> ¡Palabra incorrecta!
+                    <div id="mensajeError" class="alert alert-danger mt-3 d-none">
+                        ❌ Código incorrecto
                     </div>
                 </div>
             </div>
@@ -43,14 +45,13 @@
     </div>
 
     <!-- Contenido Principal -->
-    <div id="mainContent" class="d-none">
+    <main id="contenidoPrincipal" class="d-none">
         {{ content }}
-    </div>
+    </main>
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
     <script src="{{ '/assets/js/giftcard.js' | relative_url }}"></script>
 </body>
 </html>

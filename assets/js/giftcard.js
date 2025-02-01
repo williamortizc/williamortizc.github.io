@@ -2,77 +2,63 @@
 ---
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Configuración desde YAML
     const config = {
-        palabraSecreta: "{{ site.data.giftcard.palabra_secreta }}",
+        contraseña: "{{ site.data.giftcard.palabra_secreta }}",
         sonido: {{ site.data.giftcard.efectos.sonido }},
-        particulas: {{ site.data.giftcard.efectos.particulas }},
-        colores: {{ site.data.giftcard.colores | jsonify }}
+        animaciones: {{ site.data.giftcard.efectos.animaciones }}
     };
 
-    let sonidoFlip, currentTheme;
+    // Elementos del DOM
+    const modal = new bootstrap.Modal('#modalSeguridad');
+    const formulario = document.getElementById('formContraseña');
+    const inputContraseña = document.getElementById('inputContraseña');
+    const mensajeError = document.getElementById('mensajeError');
+    const contenidoPrincipal = document.getElementById('contenidoPrincipal');
 
-    // Sistema de Sonido
-    const cargarSonidos = () => {
-        sonidoFlip = new Howl({
-            src: ['https://assets.mixkit.co/sfx/preview/mixkit-magic-sparkle-902.mp3'],
-            volume: 0.3
-        });
-    };
-
-    // Validación de Contraseña
-    const modal = new bootstrap.Modal('#passwordModal');
+    // Mostrar modal al cargar
     modal.show();
 
-    document.getElementById('passwordForm').addEventListener('submit', (e) => {
+    // Manejar envío del formulario
+    formulario.addEventListener('submit', (e) => {
         e.preventDefault();
-        const input = document.getElementById('secretInput').value;
-        if(input === config.palabraSecreta) {
-            if(config.sonido) sonidoFlip.play();
-            iniciarExperiencia();
+        
+        if (inputContraseña.value === config.contraseña) {
+            // Contraseña correcta
             modal.hide();
+            contenidoPrincipal.classList.remove('d-none');
+            if(config.animaciones) iniciarAnimaciones();
         } else {
-            document.getElementById('errorMessage').classList.remove('d-none');
-            document.getElementById('secretInput').classList.add('is-invalid');
+            // Contraseña incorrecta
+            inputContraseña.classList.add('is-invalid');
+            mensajeError.classList.remove('d-none');
+            if(config.sonido) reproducirSonidoError();
         }
     });
 
-    // Toggle Visibilidad de Contraseña
-    document.getElementById('togglePassword').addEventListener('click', () => {
-        const input = document.getElementById('secretInput');
-        input.type = input.type === 'password' ? 'text' : 'password';
+    // Toggle visibilidad de contraseña
+    document.getElementById('botonMostrarContraseña').addEventListener('click', () => {
+        inputContraseña.type = inputContraseña.type === 'password' ? 'text' : 'password';
     });
 
-    // Experiencia Principal
-    function iniciarExperiencia() {
-        cargarSonidos();
-        document.getElementById('mainContent').classList.remove('d-none');
-        
-        // Animación de Entrada
+    // Animaciones
+    function iniciarAnimaciones() {
         gsap.from('.tarjeta', {
-            duration: 2,
+            duration: 1.5,
             scale: 0,
             rotationY: 180,
-            ease: "elastic.out(1, 0.3)"
+            ease: "elastic.out(1, 0.5)"
         });
 
-        // Efecto Parallax
-        document.addEventListener('mousemove', (e) => {
-            const x = (window.innerWidth/2 - e.clientX)/30;
-            const y = (window.innerHeight/2 - e.clientY)/30;
-            gsap.to('.tarjeta', {rotationY: x, rotationX: y, duration: 2});
-        });
-
-        // Sistema de Flip
-        let flipped = false;
         document.querySelector('.tarjeta').addEventListener('click', () => {
-            if(config.sonido) sonidoFlip.play();
-            
-            gsap.to('.tarjeta', {
-                rotationY: flipped ? 0 : 180,
-                duration: 1.2,
-                ease: "power4.out"
-            });
-            flipped = !flipped;
+            document.querySelector('.tarjeta').classList.toggle('volteada');
         });
+    }
+
+    // Sonidos
+    function reproducirSonidoError() {
+        const audio = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-wrong-answer-fail-notification-946.mp3');
+        audio.volume = 0.3;
+        audio.play();
     }
 });

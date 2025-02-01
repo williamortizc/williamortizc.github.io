@@ -1,33 +1,20 @@
-:root {
-  --color-primario: #2D2366;
-  --color-secundario: #4D3B6B;
-  --color-detalle: #F8D66D;
-}
-
-.bg-galaxy {
-  background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
+body {
   min-height: 100vh;
-  overflow: hidden;
+  background: radial-gradient(circle at center, #1a1a1a, #000);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  font-family: 'Arial', sans-serif;
 }
 
 .tarjeta {
-  width: min(95vw, 400px);
-  height: min(60vh, 250px);
-  transform-style: preserve-3d;
-  position: relative;
-  cursor: pointer;
-  transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+  width: 350px;
+  height: 220px;
+  border-radius: 20px;
   perspective: 1000px;
-  border: 2px solid rgba(255,255,255,0.1);
-}
-
-.tarjeta::before {
-  content: "";
-  position: absolute;
-  inset: -5px;
-  background: linear-gradient(45deg, var(--color-detalle), transparent 50%, var(--color-primario));
-  z-index: -1;
-  filter: blur(20px);
+  cursor: pointer;
+  position: relative;
 }
 
 .cara {
@@ -35,34 +22,57 @@
   width: 100%;
   height: 100%;
   backface-visibility: hidden;
-  border-radius: 20px;
-  padding: 1.5rem;
-  overflow: hidden;
-  background: linear-gradient(135deg, var(--color-primario), var(--color-secundario));
+  border-radius: 15px;
+  padding: 20px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  box-shadow: 0 0 30px rgba(255,255,255,0.1);
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+.frente {
+  background: linear-gradient(45deg, #2D2366, #4D3B6B);
+  color: white;
 }
 
 .reverso {
-  background: linear-gradient(45deg, #ffffff, #f8f9fa);
+  background: white;
   transform: rotateY(180deg);
-  color: var(--color-primario);
+  color: #2D2366;
 }
 
-.particle {
+.volteada {
+  transform: rotateY(180deg);
+}
+
+/* Efectos Especiales */
+.chip {
+  width: 40px;
+  height: 30px;
+  background: #F8D66D;
+  border-radius: 5px;
+  position: relative;
+  overflow: hidden;
+}
+
+.chip::after {
+  content: "";
   position: absolute;
-  width: 8px;
-  height: 8px;
-  background: var(--color-detalle);
-  border-radius: 50%;
-  pointer-events: none;
-  filter: drop-shadow(0 0 5px rgba(248,214,109,0.5));
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, 
+      transparent 25%, 
+      rgba(255,255,255,0.3) 50%, 
+      transparent 75%
+  );
+  animation: brillo 3s infinite linear;
 }
 
-/* Animaciones */
-@keyframes holograma {
-  0% { transform: translateX(-100%) skewX(-45deg); opacity: 0.3; }
-  100% { transform: translateX(100%) skewX(-45deg); opacity: 0; }
+@keyframes brillo {
+  0% { transform: translateX(-100%) rotate(45deg); }
+  100% { transform: translateX(100%) rotate(45deg); }
 }
