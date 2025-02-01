@@ -1,0 +1,35 @@
+<!-- _layouts/giftcard.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ page.title }}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Se carga el CSS específico para la tarjeta -->
+  <link rel="stylesheet" href="{{ '/assets/css/giftcard.css' | relative_url }}">
+</head>
+<body>
+  <!-- Contenedor principal de la tarjeta -->
+  <div id="gift-card-container">
+    <div class="card-container">
+      <div class="card" id="gift-card">
+        <!-- Cara frontal: se usa el gradiente definido en giftcard.yml -->
+        <div class="card-face card-front" style="background: {{ site.data.giftcard.gradient }};">
+          <h2>Tarjeta de Regalo</h2>
+          <p>Para: {{ site.data.giftcard.recipient }}</p>
+          <p>Haz clic para ver tu regalo.</p>
+        </div>
+        <!-- Cara trasera: mensaje y saldos -->
+        <div class="card-face card-back">
+          <h2>¡Sorpresa!</h2>
+          <p>{{ site.data.giftcard.message }}</p>
+          <p>Saldo inicial: {{ site.data.giftcard.initial_balance }}</p>
+          <p>Saldo restante: {{ site.data.giftcard.remaining_balance }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Se carga el JS para la funcionalidad de la tarjeta -->
+  <script src="{{ '/assets/js/giftcard.js' | relative_url }}"></script>
+</body>
+</html>

@@ -1,3 +1,8 @@
-name: "YIRLANIA BEJARANO"
-balance: 500
-message: "Feliz cumpleaños Yirlania, con esta tarjeta puedes comprar lo que se te antoje, excepto comprar a alguien que te quiera de verdad, eso ya lo tienes."
+# _data/giftcard.yml
+secret: "nuez"
+recipient: "Al amor de mi vida"
+message: "¡Feliz cumpleaños! Te amo y deseo que tengas un día maravilloso. Esta tarjeta es solo una pequeña muestra de mi amor."
+initial_balance: "$100.00"
+remaining_balance: "$100.00"
+# Gradiente con colores tipo Stitch (puedes modificar los colores a tu gusto)
+gradient: "linear-gradient(135deg, #89f7fe, #66a6ff)"
