@@ -1,6 +1,13 @@
+:root {
+  --color-primario: #2D2366;    /* Azul Stitch */
+  --color-secundario: #4D3B6B;  /* Púrpura Stitch */
+  --color-detalle: #F8D66D;     /* Amarillo Stitch */
+  --color-reverso: #FFFFFF;
+}
+
 body {
   min-height: 100vh;
-  background: #0a0a0a;
+  background: linear-gradient(135deg, #F8D66D 0%, #2D2366 100%);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -31,17 +38,17 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
 }
 
 .frente {
-  background: linear-gradient(45deg, #2D2366, #4D3B6B);
+  background: linear-gradient(45deg, var(--color-primario), var(--color-secundario));
   color: white;
 }
 
 .reverso {
-  background: white;
-  color: #2D2366;
+  background: var(--color-reverso);
+  color: var(--color-primario);
   transform: rotateY(180deg);
 }
 
@@ -49,10 +56,11 @@ body {
   transform: rotateY(180deg);
 }
 
+/* Estilo Stitch */
 .chip {
   width: 50px;
   height: 35px;
-  background: #F8D66D;
+  background: var(--color-detalle);
   border-radius: 5px;
   position: relative;
   overflow: hidden;

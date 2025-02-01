@@ -2,76 +2,69 @@
 ---
 
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Configuración inicial
     const CONFIG = {
-        CLAVE_CORRECTA: "{{ site.data.giftcard.palabra_secreta }}",
-        SONIDO_ACTIVADO: {{ site.data.giftcard.efectos.sonido }}
+        textos: {{ site.data.giftcard.textos | jsonify }},
+        datos: {{ site.data.giftcard | jsonify }},
+        sonido: {{ site.data.giftcard.efectos.sonido }}
     };
 
-    // 2. Elementos del DOM
+    // Sonidos
+    const SONIDOS = {
+        flip: new Howl({ src: ['https://assets.mixkit.co/sfx/preview/mixkit-paper-flip-1936.mp3'], volume: 0.5 }),
+        error: new Howl({ src: ['https://assets.mixkit.co/sfx/preview/mixkit-wrong-answer-fail-notification-946.mp3'], volume: 0.7 }),
+        exito: new Howl({ src: ['https://assets.mixkit.co/sfx/preview/mixkit-magic-sparkle-902.mp3'], volume: 0.4 })
+    };
+
+    // Elementos
     const modal = new bootstrap.Modal(document.getElementById('modalPrincipal'));
-    const formulario = document.getElementById('formularioAcceso');
-    const inputClave = document.getElementById('claveAcceso');
+    const formulario = document.getElementById('formAcceso');
+    const inputClave = document.getElementById('inputClave');
     const mensajeError = document.getElementById('mensajeError');
     const contenidoTarjeta = document.getElementById('contenidoTarjeta');
 
-    // 3. Sonidos pre-cargados
-    const SONIDOS = {
-        EXITO: new Howl({ src: ['https://assets.mixkit.co/sfx/preview/mixkit-magic-sparkle-902.mp3'], volume: 0.3 }),
-        ERROR: new Howl({ src: ['https://assets.mixkit.co/sfx/preview/mixkit-wrong-answer-fail-notification-946.mp3'], volume: 0.5 }),
-        FLIP: new Howl({ src: ['https://assets.mixkit.co/sfx/preview/mixkit-paper-flip-1936.mp3'], volume: 0.4 })
-    };
-
-    // 4. Mostrar modal al iniciar
+    // Inicialización
     modal.show();
 
-    // 5. Manejar envío del formulario
+    // Eventos
     formulario.addEventListener('submit', (e) => {
         e.preventDefault();
-        validarClave(inputClave.value);
+        if (inputClave.value === CONFIG.datos.palabra_secreta) {
+            accesoCorrecto();
+        } else {
+            accesoIncorrecto();
+        }
     });
 
-    // 6. Función de validación
-    function validarClave(clave) {
-        if (clave === CONFIG.CLAVE_CORRECTA) {
-            accesoExitoso();
-        } else {
-            accesoDenegado();
-        }
-    }
-
-    // 7. Acceso correcto
-    function accesoExitoso() {
-        if (CONFIG.SONIDO_ACTIVADO) SONIDOS.EXITO.play();
+    function accesoCorrecto() {
+        if (CONFIG.sonido) SONIDOS.exito.play();
         modal.hide();
         mostrarTarjeta();
         configurarFlip();
     }
 
-    // 8. Acceso denegado
-    function accesoDenegado() {
+    function accesoIncorrecto() {
         inputClave.classList.add('is-invalid');
         mensajeError.classList.remove('d-none');
-        if (CONFIG.SONIDO_ACTIVADO) SONIDOS.ERROR.play();
+        if (CONFIG.sonido) SONIDOS.error.play();
     }
 
-    // 9. Mostrar tarjeta
     function mostrarTarjeta() {
         contenidoTarjeta.classList.remove('d-none');
-        gsap.from(contenidoTarjeta, {
-            duration: 1.5,
-            scale: 0,
-            rotationY: 180,
-            ease: "elastic.out(1, 0.5)"
-        });
+        if (CONFIG.datos.efectos.animaciones) {
+            gsap.from(contenidoTarjeta, {
+                duration: 1.5,
+                scale: 0,
+                rotationY: 180,
+                ease: "elastic.out(1, 0.5)"
+            });
+        }
     }
 
-    // 10. Configurar efecto flip
     function configurarFlip() {
         const tarjeta = document.querySelector('.tarjeta');
         tarjeta.addEventListener('click', () => {
             tarjeta.classList.toggle('volteada');
-            if (CONFIG.SONIDO_ACTIVADO) SONIDOS.FLIP.play();
+            if (CONFIG.sonido) SONIDOS.flip.play();
         });
     }
 });

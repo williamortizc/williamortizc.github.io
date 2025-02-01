@@ -1,15 +1,30 @@
-nombre: "YBM"
-mensaje: "Feliz cumpleaños 💖"
-saldo_inicial: 1000.00
-saldo_actual: 1000.00
-palabra_secreta: "nuez"
+# Configuración principal
+textos:
+  titulo_pagina: "🎁 Tarjeta de Regalo Especial"
+  titulo_modal: "¡Acceso Especial!"
+  placeholder_password: "Ingresa la clave secreta"
+  texto_boton: "Ver Regalo"
+  mensaje_error: "❌ Clave incorrecta, intenta de nuevo"
+  etiqueta_saldo: "Saldo Disponible"
+  etiqueta_saldo_inicial: "Saldo Inicial"
+  texto_frente: "Para Mi Mejor Amigo"
+  texto_reverso: "¡Feliz Cumpleaños!"
 
+# Configuración personalizable
+destinatario: "YBM"
+mensaje_personalizado: "Gracias por ser tan especial. ¡Que tengas un día increíble!"
+palabra_secreta: "nuez"
+saldo_inicial: 500.00
+saldo_actual: 350.00
+
+# Diseño (colores de Stitch)
+colores:
+  primario: "#2D2366"      # Azul oscuro
+  secundario: "#4D3B6B"    # Púrpura
+  detalle: "#F8D66D"       # Amarillo Stitch
+  reverso: "#FFFFFF"       # Blanco
+
+# Efectos
 efectos:
   sonido: true
   animaciones: true
-
-diseno:
-  colores:
-    frente: ["#2D2366", "#4D3B6B"]
-    detalle: "#F8D66D"
-    reverso: "#FFFFFF"
