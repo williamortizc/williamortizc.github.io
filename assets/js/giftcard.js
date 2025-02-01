@@ -1,3 +1,5 @@
+---
+---
 document.addEventListener('DOMContentLoaded', () => {
   const config = {
       sonido: {{ site.data.giftcard.sonido_activado | jsonify }},
