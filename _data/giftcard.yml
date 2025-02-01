@@ -1,7 +1,7 @@
 # _data/giftcard.yml
 secret: "nuez"
 recipient: "Al amor de mi vida"
-message: "¡Feliz cumpleaños! Te amo y deseo que tengas un día maravilloso. Esta tarjeta es solo una pequeña muestra de mi amor."
+message: "¡Feliz cumpleaños!"
 initial_balance: "$100.00"
 remaining_balance: "$100.00"
 # Gradiente con colores tipo Stitch (puedes modificar los colores a tu gusto)
