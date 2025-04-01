@@ -3,6 +3,7 @@
     style="width:100%; height:100%; position:absolute; left:0px; top:0px; overflow:hidden; border:none;"
     allowfullscreen
     title="Dailymotion Video Player"
-    allow="web-share">
+    allow="web-share"
+    autostart=off>
   </iframe>
 </div>
